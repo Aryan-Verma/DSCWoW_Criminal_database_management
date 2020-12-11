@@ -13,6 +13,6 @@ load=tf.saved_model.load("savemodel")
 infer = load.signatures["serving_default"]
 input_sentence=input()
 
-predict_raw=infer(tf.constant([input_sentence]))['dense_4']
+predict_raw=infer(tf.constant([input_sentence]))['dense_1']
 predict=categories[int(tf.argmax(predict_raw,axis=-1))]
 
