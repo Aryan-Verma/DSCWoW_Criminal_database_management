@@ -1,4 +1,4 @@
-#Instructions for usage#   
+#Instructions for usage  
 
 **Step 1** Download all the files from the google drive link : `https://drive.google.com/drive/folders/1ykrDgszkrBYat-MkxFGAmjOj-YtqYaPp?usp=sharing`  
 
@@ -11,4 +11,5 @@
                                    /saved_model.pb
            ```
     
-##Run the training code for retraining the model and generating the savemodel folder, if you cannot extract the rar file.
+##Run the training code for retraining the model and generating the savemodel folder, if you cannot extract the rar file.  
+
