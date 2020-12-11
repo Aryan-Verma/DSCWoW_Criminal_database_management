@@ -22,6 +22,8 @@ def index():
 			return redirect(url_for('signin'))
 		if 'signup' in request.form:
 			return redirect(url_for('signup'))
+		if 'form' in request.form:
+			return redirect(url_for('form'))
 	else:
 		return render_template('index.html')
 
