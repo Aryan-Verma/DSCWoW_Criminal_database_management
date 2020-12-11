@@ -1,1 +1,1 @@
-DSC Hackethon Project
+DSC Hackathon Project
