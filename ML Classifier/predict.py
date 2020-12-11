@@ -11,8 +11,8 @@ if not(os.path.exists("savemodel")):
 
 load=tf.saved_model.load("savemodel")
 infer = load.signatures["serving_default"]
-input_sentence=input()
+input_sentence=##INPUT SENTENCE FROM FLASK"
 
 predict_raw=infer(tf.constant([input_sentence]))['dense_1']
 predict=categories[int(tf.argmax(predict_raw,axis=-1))]
-
+##PREDICT IS THE FINAL OUTPUT##
