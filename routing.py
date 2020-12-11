@@ -15,6 +15,16 @@ except:
 
 app = Flask(__name__,template_folder= 'templates', static_url_path = '',static_folder = 'static')
 
+@app.route('/', methods = ['GET', 'POST'])
+def index():
+	if request.method == 'POST':
+		if 'signin' in request.form:
+			return redirect(url_for('signin'))
+		if 'signup' in request.form:
+			return redirect(url_for('signup'))
+	else:
+		return render_template('index.html')
+
 @app.route('/signin', methods = ['GET', 'POST'])
 def signin():
 	return render_template('signin.html')
