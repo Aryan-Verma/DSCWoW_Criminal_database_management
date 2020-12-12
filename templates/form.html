@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,37 +28,37 @@
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" method = "POST">
+			<form class="contact100-form validate-form" method = "POST" id = "FIR">
 				<span class="contact100-form-title">
 					First Information Report
 				</span>
 
 				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Please Type Your Name">
 					<span class="label-input100">First Name *</span>
-					<input class="input100" type="text" name="name" placeholder="Enter Your First Name">
+					<input class="input100" type="text" name="fullname" placeholder="Enter Your Full Name">
 				</div>
-				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Please Type Your Name">
+				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Please Type FIR No">
 					<span class="label-input100">Last Name *</span>
-					<input class="input100" type="text" name="name" placeholder="Enter Your Last Name">
+					<input class="input100" type="text" name="firnumber" placeholder="Enter 7 digit FIR Number">
 				</div>
 
 				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
 					<span class="label-input100">FIR Number *</span>
-					<input class="input100" type="text" name="email" placeholder="Enter 7 digit FIR Number ">
+					<input class="input100" type="text" name="email" placeholder="Enter Yur Email ">
 				</div>
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
 					<span class="label-input100">Phone</span>
-					<input class="input100" type="text" name="phone" placeholder="Enter 10 digit Phone">
+					<input class="input100" type="text" name="phonenumber" placeholder="Enter 10 digit Phone">
 				</div>
 	
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
 					<span class="label-input100">Employment</span>
-					<input class="input100" type="text" name="phone" placeholder="Enter Employment Details">
+					<input class="input100" type="text" name="empdetails" placeholder="Enter Employment Details">
 				</div>
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
 					<span class="label-input100">Field Interview Score</span>
-					<input class="input100" type="text" name="phone" placeholder="Enter Field Interview Score">
+					<input class="input100" type="text" name="interviewscore" placeholder="Enter Field Interview Score">
 				</div>
 
 				<div class = "wrap-input100">
@@ -67,7 +68,7 @@
 					<input type = "radio", value = "Normal" name = "danger"><label for="Gun"> Normal Citizen</label>
 					<input type = "radio", value = "Gang" name = "danger"><label for="Gang"> Gang member</label>
 				</div>
-				<div>Enter crime location</div>
+
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
 					<span class="label-input100">Latitude</span>
 					<input class="input100" type="text" name="latitude" placeholder="Enter Latitude">
@@ -77,16 +78,17 @@
 					<input class="input100" type="text" name="longitude" placeholder="Enter Longitude">
 				</div>
 
-				<div id ="crime">
-					<div class="wrap-input100 bg1">
+				<div id ="crime_div" class = " wrap-input100">
+					<h3 align="center"> Enter the crime details</h3>
+					<div class="wrap-input100">
 					<span class="label-input100">Offense in brief</span>
-					<button class="btn-lg btn-primary btn-sm right " name = "add" id ="add">Add crime</i></button>
-					<input class="input100" type="text" name="crime">
+					<button class="btn-lg btn-primary btn-sm right " name = "add" id ="add" align = "right">Add crime</i></button>
+					<input class="input100" type="text" name="crime" id ="crime">
 				</div>
 					
 				</div>
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
+					<button class="contact100-form-btn" type = "submit">
 						<span>
 							Submit
 							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -107,16 +109,37 @@
 <script>
 
 		$(document).ready(function() {
-    var wrapper = $("#crime");
+    var wrapper = $("#crime_div");
     var add_button = $("#add");
 
     $(add_button).click(function(e) {
         e.preventDefault();
         console.log('Smit')
-            $(wrapper).append('<div class="wrap-input100 bg1"> <span class="label-input100">Offense in brief</span><input class="input100" type="text" name="crime"></div>')
+            $(wrapper).append('<div class="wrap-input100 bg1"> <span class="label-input100">Offense in brief</span><input class="input100" type="text" name="crime" id ="crime"></div>')
     });
 }); 
 
+const form = document.getElementById('FIR')
+form.addEventListener('submit', () => {
+	var crimes = [];
+    $("#crime_div :text").each(function(){
+        crimes.push($(this).val());
+    });
+	console.log(crimes)
+$.ajax({
+    type: "POST",
+    url: "{{ url_for("form") }}",
+    contentType: "application/json",
+    data: JSON.stringify({crimes: crimes}),
+    dataType: "json",
+    success: function(response) {
+        console.log(response);
+    },
+    error: function(err) {
+        console.log(err);
+    }
+});
+})
 
 </script>
 
@@ -148,3 +171,4 @@
 
 </body>
 </html>
+
