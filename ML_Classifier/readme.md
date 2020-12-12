@@ -6,9 +6,9 @@
 
 **Step 3** Extract the files from ``savemodel.rar`` such that the directory looks like  
            ```
-           ML Classifier/savemodel/assets
-                                   /variables
-                                   /saved_model.pb
+           ML Classifier/savemodel/assets   
+                                   /variables  
+                                   /saved_model.pb  
            ```
     
 ### Run the training code for retraining the model and generating the savemodel folder, if you cannot extract the rar file.  
