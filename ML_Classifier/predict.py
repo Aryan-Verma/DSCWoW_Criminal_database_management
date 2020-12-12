@@ -36,5 +36,5 @@ def predict(input_sentence):
 		predict_raw=infer(tf.constant([i]))['dense_4']
 		predict=categories[int(tf.argmax(predict_raw,axis=-1))]
 		precit_list.append(predict)
-	return predict_list
+	return precit_list
 >>>>>>> 9733d38a951e3b808e16958801ec8c69d754a721:ML Classifier/predict.py
