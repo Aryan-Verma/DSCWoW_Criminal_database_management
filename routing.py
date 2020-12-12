@@ -1,12 +1,12 @@
-from flask import Flask, render_template, flash, redirect, request, url_for, session
-# from wtforms import SignupInputForm, SigninInputForm
-
+from flask import Flask,render_template, flash, redirect, request, url_for
+from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map, icons
 import mysql.connector
 
 cur = None
 try:
 	print("connected")
-	connection = mysql.connector.connect(user='root', password='201012', host='localhost', database='dsc') # CHANGE CREDS
+	connection = mysql.connector.connect(user='root', password='201012', host='localhost', database='DSC') # CHANGE CREDS
 	print("connected")
 
 	cur = connection.cursor(buffered=True)
@@ -15,9 +15,10 @@ except:
 	print("not connected")
 
 app = Flask(__name__,template_folder= 'templates', static_url_path = '',static_folder = 'static')
-# mysql = MySQL(app)
+GoogleMaps(app, key="my-key")
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/', methods = ['GET', 'POST'])
 def index():
 	if request.method == 'POST':
 		if 'signin' in request.form:
@@ -59,7 +60,7 @@ def signup():
         username = request.form['username']
         policeid = request.form['policeid']
         password = request.form['password']
-        cur.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, policeid, password, ))
+        cursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, policeid, password, ))
         connection.commit()
         # msg = 'You have successfully registered !'
         return redirect(url_for('main'))
@@ -67,11 +68,38 @@ def signup():
         msg = 'Please fill out the form !'
     else:
         return render_template('signup.html')
-
-@app.route('/main', methods =['GET', 'POST'])
+@app.route('/home', methods =['GET', 'POST'])
 def main():
-    return render_template('index.html')
+    return render_template('main.html')
+
+
+@app.route('/form', methods = ['GET', 'POST'])
+def form():
+    if request.method == 'POST':
+        # BHALU TAKE THE VARIABLES AND ADD TO THE DATABASE
+        data = request.get_json()
+        crimes = data['crimes']
+        print(crimes)
+        return redirect(url_for('main'))
+    else: 
+        return render_template('form.html')
+
+@app.route('/map', methods = ['GET', 'POST'])
+def map():
+    mymap = Map(
+
+                identifier="view-side",
+                varname="mymap",
+                style="height:720px;width:1100px;margin:0;", # hardcoded!
+                lat=37.4419, # hardcoded!
+                lng=-122.1419, # hardcoded!
+                zoom=15,
+                markers=[(37.4419, -122.1419)] # hardcoded!
+
+            )
+
+    return render_template('map.html', mymap=mymap)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+     app.run(debug=True)
