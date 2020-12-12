@@ -1,4 +1,4 @@
-from flask import Flask,render_template, flash, redirect, request, url_for
+from flask import Flask,render_template, flash, redirect, request, url_for, session
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
 import mysql.connector
@@ -32,17 +32,20 @@ def index():
 def signin():
     msg=''
     # form = SigninInputForm()
-    if request.method == 'POST' and 'policeid' in request.form and 'password' in request.form:
-        policeid = request.form['policeid']
-        password = request.form['password']
+    if request.method == 'POST':
+        print('hi')
+        if 'policeid' in request.form and 'password' in request.form:
+            policeid = request.form['policeid']
+            password = request.form['password']
+            print('hi')
         # if policeid == "1111" and password == "aaaa":
         #     return redirect(url_for('main'))
-        cur.execute('SELECT * FROM accounts WHERE policeid = % s AND password = % s', (policeid, password))
-        account = cur.fetchone()
-        if account:
-            session['signin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
+            # cur.execute('SELECT * FROM accounts WHERE policeid = % s AND password = % s', (policeid, password))
+            # account = cur.fetchone()
+            # if account:
+            #     session['signin'] = True
+            #     session['id'] = account['id']
+            #     session['username'] = account['username']
             # msg = 'Signed In Successfully !'
             return redirect(url_for('main'))
         # else:
@@ -55,17 +58,18 @@ def signin():
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
     msg=''
-    if request.method == 'POST' and 'fullname' in request.form and 'username' in request.form and 'policeid' in request.form and 'password' in request.form:
-        fullname = request.form['fullname']
-        username = request.form['username']
-        policeid = request.form['policeid']
-        password = request.form['password']
-        cursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, policeid, password, ))
-        connection.commit()
+    if request.method == 'POST':
+        if 'fullname' in request.form and 'username' in request.form and 'policeid' in request.form and 'password' in request.form:
+            fullname = request.form['fullname']
+            username = request.form['username']
+            policeid = request.form['policeid']
+            password = request.form['password']
+            #cur.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, policeid, password, ))
+            #connection.commit()
         # msg = 'You have successfully registered !'
-        return redirect(url_for('main'))
-    elif request.method == 'POST':
-        msg = 'Please fill out the form !'
+            return redirect(url_for('main'))
+        else:
+            msg = 'Please fill out the form !'
     else:
         return render_template('signup.html')
 @app.route('/home', methods =['GET', 'POST'])
