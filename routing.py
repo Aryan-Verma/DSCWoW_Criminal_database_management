@@ -1,6 +1,7 @@
 from flask import Flask,render_template, flash, redirect, request, url_for, session
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
+from ML_Classifier.predict import predict
 import mysql.connector
 
 cur = None
@@ -84,6 +85,7 @@ def form():
         data = request.get_json()
         crimes = data['crimes']
         print(crimes)
+        predict = predict(crimes)
         return redirect(url_for('main'))
     else: 
         return render_template('form.html')
