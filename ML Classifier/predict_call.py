@@ -3,10 +3,10 @@ import predict as pr
 
 def get_cat():
                #params
-	categories=## function here##
+	cat_descrpt=## function here##
 
 	list_crimes=[]
-	for x in categories:
+	for x in cat_descrpt:
 		list_crimes.append(pr.pred(x))
 	return(list_crimes)
 
