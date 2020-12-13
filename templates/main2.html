@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+<!--===============================================================================================-->
+    <style>
+    * {
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFCcin5Oof-ItON6Qd2jJYSlyh4Kdoed3Vl2s8cXSEADKgswj8syjVb8Fho7nEWdMZMQ_e5juNJbcLDg8HimJqhvby6OeK7hYsWg&usqp=CAU&ec=45750088')
+    }
+
+    /* Style the header */
+    .header {
+    padding: 20px;
+    text-align: center;
+    background: azure;
+    color: black;
+    }
+
+    /* Increase the font size of the h1 element */
+    .header h1 {
+    font-size: 40px;
+    }
+
+    /* Style the top navigation bar */
+    .navbar {
+    overflow: hidden;
+    background-color: #333;
+    }
+
+    /* Style the navigation bar links */
+    .navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    }
+
+    /* Right-aligned link */
+    .navbar a.right {
+    float: right;
+    }
+
+    /* Change color on hover */
+    .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+    }
+
+    /* Column container */
+    .row {  
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+    /* Create two unequal columns that sits next to each other */
+    /* Sidebar/left column */
+    .side {
+    flex: 20%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    }
+
+    /* Main column */
+    .main {   
+    flex: 80%;
+    background-color: white;
+    padding: 20px;
+    }
+
+    /* Fake image, just for this example */
+    .fakeimg {
+    background-color: lightgray;
+    width: 100%;
+    padding: 20px;
+    }
+
+    /* Footer */
+    .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    }
+    a {
+        color: black;
+    }
+
+    /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 700px) {
+    .row {   
+        flex-direction: column;
+    }
+    }
+
+    /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+    @media screen and (max-width: 400px) {
+    .navbar a {
+        float: none;
+        width:100%;
+    }
+    }
+    .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+.container{
+    max-height: 380px;
+}
+.container2 {
+    max-height: 420px;
+}
+img {
+    padding-right: 10px;
+} 
+    </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>You Know Who</h1>
+  <p>Minimalistic Criminal Database Management </p>
+</div>
+
+<div class="navbar">
+  <a href="/form">Register a Criminal Report</a>
+  <a href="/dashboard" class = "center" style="margin-left:650px; text-align:center; display:block;">Criminal Dashboard</a>
+  <!-- <a href="#">Link</a> -->
+  <a href="/" class="right">Logout</a>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2>My Profile</h2>
+    <br>
+    <div class= "image"><img src ="https://www.khuddam.in/wp-content/uploads/2018/02/Karnataka-State-Police.jpg" width= "340px; height: 200px; margin-left: 20px;"></div><br>
+    <p> Name: ABC</p>
+    <p> Username: XYZ </p>
+    <p> Designation : Constable </p>
+    <br>
+    <h3>Quick Links</h3>
+    <p>Get Work done Quickly</p><br>
+    <div class="fakeimg" style="height:60px;"> <a href="/form">Register a new Criminal Report</a></div><br><br>
+    <div class="fakeimg" style="height:60px;"><a href="/map">Locate Last known Criminal Activity</a></div><br><br>
+    <div class="fakeimg" style="height:60px;"><a href="/dashboard">Criminal Dashboard</a></div><br><br>
+    <div class="fakeimg" style="height:60px;">Cases Pending: 256</div><br>
+  </div>
+  <div class="main">
+    <div id = "news" style = " overflow:auto;" class = "container">
+        {%for i in range(0,7)%}
+        <div class="row">
+            <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="" src="{{images[i]}}" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title" style="font-size: 30px;">{{titles[i]}}</h2>
+                        <p class="card-text" style ="font-size: 20px;">{{descs[i]}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {%endfor%}
+  </div>
+  <hr>
+    <br>
+<div id = "something" style = " overflow:auto;" class = "container2" >
+    <div>
+        <h2 align="center"> Crime Rate Over the Year</h2> 
+        <center>
+        <img src = "{{ url_for('static', filename ='images/plot.png') }}" width = "1000px" height="380px" align="center" />
+    </center>
+    </div>
+
+    <br>
+  </div>
+</div>
+
+
+
+<!--===============================================================================================-->
+    <script src="{{ url_for('static', filename='jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
